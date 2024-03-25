@@ -27,11 +27,7 @@ import net.minecraft.structure.processor.StructureProcessor;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Clearable;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.BitSetVoxelSet;
 import net.minecraft.util.shape.VoxelSet;
@@ -44,12 +40,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Mixin(StructureTemplate.class)
 public abstract class StructureTemplateMixin implements ClientStructureTemplate {

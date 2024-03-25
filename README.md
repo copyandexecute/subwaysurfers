@@ -13,7 +13,7 @@ For shaders you need sodium and iris in mods folder
 - [ ] Stern Animation Bei Schaden
 
 ### Items
-- [ ] Jetpack
+- [x] Jetpack
 - [ ] Hoverboard
 - [ ] Jumpboots
 

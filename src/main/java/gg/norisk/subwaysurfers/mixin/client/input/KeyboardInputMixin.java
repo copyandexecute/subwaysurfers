@@ -2,7 +2,6 @@ package gg.norisk.subwaysurfers.mixin.client.input;
 
 import gg.norisk.subwaysurfers.client.ClientSettings;
 import gg.norisk.subwaysurfers.client.lifecycle.ClientGamePreStartLifeCycle;
-import gg.norisk.subwaysurfers.subwaysurfers.SubwaySurferKt;
 import net.minecraft.client.input.Input;
 import net.minecraft.client.input.KeyboardInput;
 import org.spongepowered.asm.mixin.Mixin;

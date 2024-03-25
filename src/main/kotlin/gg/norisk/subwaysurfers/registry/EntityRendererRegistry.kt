@@ -1,16 +1,14 @@
 package gg.norisk.subwaysurfers.registry
 
-import gg.norisk.subwaysurfers.client.renderer.entity.*
+import gg.norisk.subwaysurfers.client.renderer.entity.RampRenderer
+import gg.norisk.subwaysurfers.client.renderer.entity.TrafficLightRenderer
+import gg.norisk.subwaysurfers.client.renderer.entity.TrainRenderer
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry
 
 object EntityRendererRegistry {
     fun init() {
-        EntityRendererRegistry.register(EntityRegistry.COIN, ::CoinRenderer)
         EntityRendererRegistry.register(EntityRegistry.TRAFFICLIGHT, ::TrafficLightRenderer)
-        EntityRendererRegistry.register(EntityRegistry.HOVERBOARD, ::HoverboardRenderer)
-        EntityRendererRegistry.register(EntityRegistry.BOOTS, ::BootsRenderer)
         EntityRendererRegistry.register(EntityRegistry.TRAIN, ::TrainRenderer)
-        EntityRendererRegistry.register(EntityRegistry.MAGNET, ::MagnetRenderer)
         EntityRendererRegistry.register(EntityRegistry.RAMP, ::RampRenderer)
     }
 }

@@ -1,6 +1,7 @@
 package gg.norisk.subwaysurfers.item
 
-import gg.norisk.subwaysurfers.client.renderer.armor.HoverboardItemRenderer
+import gg.norisk.subwaysurfers.SubwaySurfers.toId
+import gg.norisk.subwaysurfers.common.collectible.Powerup
 import net.minecraft.client.render.entity.model.BipedEntityModel
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.LivingEntity
@@ -12,14 +13,15 @@ import software.bernie.geckolib.animatable.client.RenderProvider
 import software.bernie.geckolib.constant.DefaultAnimations
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager
+import software.bernie.geckolib.model.DefaultedItemGeoModel
 import software.bernie.geckolib.renderer.GeoArmorRenderer
 import software.bernie.geckolib.util.GeckoLibUtil
 import java.util.function.Consumer
 import java.util.function.Supplier
 
-class HoverboardItem(settings: Settings) : ArmorItem(
+class PowerupItem(val powerup: Powerup, settings: Settings) : ArmorItem(
     ArmorMaterials.DIAMOND,
-    Type.CHESTPLATE,
+    Type.values().first { it.equipmentSlot == powerup.equipmentSlot },
     settings,
 ), GeoItem {
     private val cache: AnimatableInstanceCache = GeckoLibUtil.createInstanceCache(this)
@@ -36,7 +38,7 @@ class HoverboardItem(settings: Settings) : ArmorItem(
                 equipmentSlot: EquipmentSlot,
                 original: BipedEntityModel<LivingEntity>
             ): BipedEntityModel<LivingEntity> {
-                if (this.renderer == null) this.renderer = HoverboardItemRenderer()
+                if (this.renderer == null) this.renderer = GeoArmorRenderer<PowerupItem>(DefaultedItemGeoModel("armor/${powerup.id}".toId()))
 
                 // This prepares our GeoArmorRenderer for the current render frame.
                 // These parameters may be null however, so we don't do anything further with them

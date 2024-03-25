@@ -1,6 +1,7 @@
 package gg.norisk.subwaysurfers.entity
 
 import gg.norisk.subwaysurfers.client.hud.NbtEditorScreen
+import gg.norisk.subwaysurfers.common.collectible.Coin
 import gg.norisk.subwaysurfers.entity.TrainEntity.Companion.handleDiscard
 import gg.norisk.subwaysurfers.subwaysurfers.isSubwaySurfers
 import net.minecraft.client.MinecraftClient
@@ -77,6 +78,10 @@ open class DriveableEntity(type: EntityType<out AnimalEntity>, level: World) : A
     }
 
     override fun travel(moveVector: Vec3d) {
+        if (type == Coin.entityType) {
+            // todo eigentlich soll nur PowerupEntity eine DriveableEntity sein?
+            return super.travel(moveVector)
+        }
         val shouldDrive = if (shouldDrive) {
             if (owner != null) {
                 val ownerEntity = world.getPlayerByUuid(owner)

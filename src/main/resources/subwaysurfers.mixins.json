@@ -22,6 +22,7 @@
     "client.render.CameraMixin",
     "client.render.GameRendererMixin",
     "client.render.WorldRendererMixin",
+    "client.render.entity.LivingEntityRendererMixin",
     "client.render.entity.PlayerEntityRendererMixin",
     "client.structure.StructureTemplateMixin"
   ],

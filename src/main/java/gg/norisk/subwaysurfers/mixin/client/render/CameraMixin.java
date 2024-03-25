@@ -7,11 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
@@ -38,7 +34,7 @@ public abstract class CameraMixin {
         var settings = ClientSettings.INSTANCE;
         if (ClientSettings.INSTANCE.useSubwayCamera() && settings.getStartPos() != null && entity instanceof PlayerEntity player) {
             var visualSettings = settings.getCameraSettings();
-            // - interpolate x and y coordinates
+            // - interpolate x and y coordinates  todo fix interpolation relative to fps
             // - offset camera up and forward
             customX = lerp(f * visualSettings.getCameraSpeedX(), customX, player.getX());
             customY = lerp(f * visualSettings.getCameraSpeedY(), lastCustomY, entity.getY() + visualSettings.getCameraOffsetY());

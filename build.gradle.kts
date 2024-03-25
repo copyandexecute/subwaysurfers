@@ -87,6 +87,10 @@ tasks {
         kotlinOptions.jvmTarget = "17"
     }
 
+    compileJava {
+        sourceCompatibility = "17"
+    }
+
 }
 
 java {

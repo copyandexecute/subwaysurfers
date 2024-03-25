@@ -1,7 +1,12 @@
-package gg.norisk.subwaysurfers.entity
+package gg.norisk.subwaysurfers.common.entity
 
+import gg.norisk.subwaysurfers.common.collectible.Collectible
+import gg.norisk.subwaysurfers.entity.DriveableEntity
+import gg.norisk.subwaysurfers.entity.OriginMarker
+import gg.norisk.subwaysurfers.network.dto.toDto
 import gg.norisk.subwaysurfers.subwaysurfers.isSubwaySurfers
 import net.minecraft.block.BlockState
+import net.minecraft.client.network.ClientPlayerEntity
 import net.minecraft.entity.Entity
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.passive.AnimalEntity
@@ -14,26 +19,30 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar
 import software.bernie.geckolib.util.GeckoLibUtil
 
-class BootsEntity(type: EntityType<out AnimalEntity>, level: World) : DriveableEntity(type, level), GeoEntity,
-    OriginMarker {
+class CollectibleEntity(
+    private val collectible: Collectible,
+    type: EntityType<out AnimalEntity>,
+    level: World
+) : DriveableEntity(type, level), GeoEntity, OriginMarker {
     override var origin: BlockPos = this.blockPos
     private val cache: AnimatableInstanceCache = GeckoLibUtil.createInstanceCache(this)
 
     override fun pushAwayFrom(entity: Entity?) {
+        super.pushAwayFrom(entity)
     }
-
     override fun pushAway(entity: Entity?) {
+        super.pushAway(entity)
     }
+    override fun playStepSound(pos: BlockPos, block: BlockState) {}
 
     override fun onPlayerCollision(player: PlayerEntity) {
-        if (world.isClient && player.isSubwaySurfers) {
-            //TODO
+        if (world.isClient && player.isSubwaySurfers && player is ClientPlayerEntity) {
+            collectible.pickupPacket.send(this.blockPos.toDto())
             this.discard()
         }
     }
 
-    // Turn off step sounds since it's a bike
-    override fun playStepSound(pos: BlockPos, block: BlockState) {}
+    // ---- ANIMATIONS ----
 
     // Add our generic idle animation controller
     override fun registerControllers(controllers: ControllerRegistrar) {

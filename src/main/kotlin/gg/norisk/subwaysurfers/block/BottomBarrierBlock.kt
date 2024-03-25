@@ -2,12 +2,10 @@ package gg.norisk.subwaysurfers.block
 
 import com.mojang.serialization.MapCodec
 import gg.norisk.subwaysurfers.client.mechanics.ClientCollisionManager
-import gg.norisk.subwaysurfers.subwaysurfers.isSubwaySurfers
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.HorizontalFacingBlock
 import net.minecraft.entity.Entity
-import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemPlacementContext
 import net.minecraft.state.StateManager
 import net.minecraft.util.math.BlockPos

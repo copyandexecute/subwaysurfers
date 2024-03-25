@@ -31,7 +31,6 @@
 				},
 				{
 					"name": "hoverboard",
-					"parent": "armorBody",
 					"pivot": [0, -1.2264, 0.02159],
 					"cubes": [
 						{

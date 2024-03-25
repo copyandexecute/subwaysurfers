@@ -1,14 +1,16 @@
 package gg.norisk.subwaysurfers.mixin.entity.player;
 
+import gg.norisk.subwaysurfers.common.collectible.CollectiblesKt;
+import gg.norisk.subwaysurfers.common.collectible.Powerup;
 import gg.norisk.subwaysurfers.event.events.PlayerEvents;
 import gg.norisk.subwaysurfers.subwaysurfers.SubwaySurferKt;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -40,7 +42,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickInjection(CallbackInfo ci) {
         if (!this.getWorld().isClient) {
-            SubwaySurferKt.handleMagnet((PlayerEntity) (Object) this);
             SubwaySurferKt.handlePunishTicks((PlayerEntity) (Object) this);
         } else {
             if (horizontalCollision) {
@@ -95,6 +96,18 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         this.dataTracker.startTracking(SubwaySurferKt.getCoinDataTracker(), 0);
         this.dataTracker.startTracking(SubwaySurferKt.getSubwaySurfersTracker(), false);
         this.dataTracker.startTracking(SubwaySurferKt.getDebugModeTracker(), false);
-        this.dataTracker.startTracking(SubwaySurferKt.getMagnetTracker(), false);
+
+        // data trackers for power-ups
+        CollectiblesKt.getPowerups().forEach(powerUp -> this.dataTracker.startTracking(powerUp.getEndTimestampTracker(), 0L));
+    }
+
+    @Inject(method = "getEquippedStack", at = @At("HEAD"), cancellable = true)
+    private void fakePowerupStacks(EquipmentSlot equipmentSlot, CallbackInfoReturnable<ItemStack> cir) {
+        if (!getWorld().isClient) return;
+        for (Powerup powerup : CollectiblesKt.getPowerups()) {
+            if (powerup.isActiveFor((PlayerEntity) (Object) this) && powerup.getEquipmentSlot() == equipmentSlot && powerup.getItem() != null) {
+                cir.setReturnValue(new ItemStack(powerup.getItem()));
+            }
+        }
     }
 }

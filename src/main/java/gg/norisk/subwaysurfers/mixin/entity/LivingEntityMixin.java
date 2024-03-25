@@ -28,6 +28,7 @@ public abstract class LivingEntityMixin extends Entity {
     @ModifyConstant(method = "travel", constant = @Constant(doubleValue = 0.08))
     private double travelInjection(double constant) {
         if (getType() == EntityType.PLAYER) {
+            //noinspection DataFlowIssue
             var player = (PlayerEntity) (Object) this;
             if (SubwaySurferKt.isSubwaySurfers(player)) {
                 return SubwaySurferKt.getGravity(player);

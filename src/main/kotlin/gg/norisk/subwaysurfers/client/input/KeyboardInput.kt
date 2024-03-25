@@ -13,8 +13,6 @@ import net.minecraft.client.network.ClientPlayerEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
-import net.silkmc.silk.core.text.literal
-import kotlin.math.roundToLong
 
 object KeyboardInput {
     fun init() {

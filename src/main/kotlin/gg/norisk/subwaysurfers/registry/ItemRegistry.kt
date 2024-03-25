@@ -2,7 +2,6 @@ package gg.norisk.subwaysurfers.registry
 
 import gg.norisk.subwaysurfers.SubwaySurfers.toId
 import gg.norisk.subwaysurfers.item.BuilderItem
-import gg.norisk.subwaysurfers.item.HoverboardItem
 import gg.norisk.subwaysurfers.item.RemoteDetonatorItem
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup
 import net.minecraft.item.BlockItem
@@ -15,8 +14,6 @@ import net.minecraft.text.Text
 import net.minecraft.util.Rarity
 
 object ItemRegistry {
-    val COIN: Item = registerItem("coin", Item(Item.Settings()))
-    val HOVERBOARD: Item = registerItem("hoverboard", HoverboardItem(Item.Settings()))
     val BUILDER: Item = registerItem("builder", BuilderItem(Item.Settings().maxCount(1).rarity(Rarity.EPIC)))
     val REMOTE_DETONATOR: Item = registerItem("remote_detonator", RemoteDetonatorItem(Item.Settings().maxCount(1).rarity(Rarity.EPIC)))
     val SUBWAY_RAIL: BlockItem = registerItem("subway_rail", BlockItem(BlockRegistry.SUBWAY_RAIL, Item.Settings()))
@@ -37,13 +34,12 @@ object ItemRegistry {
                 entries.add(SUBWAY_RAIL)
                 entries.add(TOP_BARRIER)
                 entries.add(BOTTOM_BARRIER)
-                entries.add(HOVERBOARD)
                 entries.add(BUILDER)
                 entries.add(REMOTE_DETONATOR)
             }.build()
     )
 
-    private fun <I : Item> registerItem(name: String, item: I): I {
+    fun <I : Item> registerItem(name: String, item: I): I {
         return Registry.register(Registries.ITEM, name.toId(), item)
     }
 }

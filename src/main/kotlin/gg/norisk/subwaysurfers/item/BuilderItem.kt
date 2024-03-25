@@ -1,7 +1,6 @@
 package gg.norisk.subwaysurfers.item
 
-import gg.norisk.subwaysurfers.entity.CoinEntity
-import gg.norisk.subwaysurfers.entity.MagnetEntity
+import gg.norisk.subwaysurfers.common.collectible.*
 import gg.norisk.subwaysurfers.entity.TrainEntity
 import gg.norisk.subwaysurfers.extensions.next
 import gg.norisk.subwaysurfers.registry.EntityRegistry
@@ -46,18 +45,19 @@ class BuilderItem(settings: Settings) : Item(settings) {
             EntityRegistry.RAMP.spawn(worldAccess as ServerWorld, blockPos, SpawnReason.SPAWN_EGG)
         }),
         COIN(callback = { player, blockState, worldAccess, blockPos, bl, itemStack ->
-            val coin =
-                EntityRegistry.COIN.spawn(worldAccess as ServerWorld, blockPos, SpawnReason.SPAWN_EGG) as CoinEntity
+            Coin.entityType?.spawn(worldAccess as ServerWorld, blockPos, SpawnReason.SPAWN_EGG)
         }),
         MAGNET(callback = { player, blockState, worldAccess, blockPos, bl, itemStack ->
-            val magnet =
-                EntityRegistry.MAGNET.spawn(worldAccess as ServerWorld, blockPos, SpawnReason.SPAWN_EGG) as MagnetEntity
+            Magnet.entityType?.spawn(worldAccess as ServerWorld, blockPos, SpawnReason.SPAWN_EGG)
         }),
         HOVERBOARD(callback = { player, blockState, worldAccess, blockPos, bl, itemStack ->
-            EntityRegistry.HOVERBOARD.spawn(worldAccess as ServerWorld, blockPos, SpawnReason.SPAWN_EGG)
+            Hoverboard.entityType?.spawn(worldAccess as ServerWorld, blockPos, SpawnReason.SPAWN_EGG)
         }),
         BOOTS(callback = { player, blockState, worldAccess, blockPos, bl, itemStack ->
-            EntityRegistry.BOOTS.spawn(worldAccess as ServerWorld, blockPos, SpawnReason.SPAWN_EGG)
+            Boots.entityType?.spawn(worldAccess as ServerWorld, blockPos, SpawnReason.SPAWN_EGG)
+        }),
+        JETPACK(callback = { player, blockState, worldAccess, blockPos, bl, itemStack ->
+            Jetpack.entityType?.spawn(worldAccess as ServerWorld, blockPos, SpawnReason.SPAWN_EGG)
         }),
         TRAFFICLIGHT(callback = { player, blockState, worldAccess, blockPos, bl, itemStack ->
             EntityRegistry.TRAFFICLIGHT.spawn(worldAccess as ServerWorld, blockPos, SpawnReason.SPAWN_EGG)
